@@ -11,6 +11,7 @@
 		<typeAlias alias="post"  type="kr.or.ddit.post.model.Post"/>
 		<typeAlias alias="reply" type="kr.or.ddit.reply.model.Reply"/>
 		<typeAlias alias="user"  type="kr.or.ddit.user.model.User"/>
+		<typeAlias alias="page"  type="kr.or.ddit.common.model.Page"/>
 	</typeAliases>
 	
 	<environments default="development">

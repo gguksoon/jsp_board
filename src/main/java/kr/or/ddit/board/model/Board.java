@@ -7,6 +7,18 @@ public class Board {
 	private int boardLocation;  // 게시판 순서
 	private int boardStatus;    // 사용여부
 	
+	public Board() {
+		super();
+	}
+	
+	public Board(int boardSeq, String boardNm, String userId, int boardLocation, int boardStatus) {
+		this.boardSeq = boardSeq;
+		this.boardNm = boardNm;
+		this.userId = userId;
+		this.boardLocation = boardLocation;
+		this.boardStatus = boardStatus;
+	}
+
 	public int getBoardSeq() {
 		return boardSeq;
 	}

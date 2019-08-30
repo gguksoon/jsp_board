@@ -1,6 +1,9 @@
 package kr.or.ddit.user.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 
 public class User {
 	private String userId;			// 사용자 아이디
@@ -81,4 +84,20 @@ public class User {
 				+ alias + ", addr1=" + addr1 + ", addr2=" + addr2 + ", zipCode=" + zipCode + ", fileName=" + fileName
 				+ ", realFileName=" + realFileName + "]";
 	}
+	
+	// 현재 객체의 시간을 SimpleDateFormat으로 "yyyy-MM-dd"로 변경
+	public String getReg_dt_fmt() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(reg_dt);
+	}
+	
+	// 암호화 문장끼리 비교
+	public boolean checkLoginValidate(String userId, String pass) {
+		if(userId.equals(this.userId) && KISA_SHA256.encrypt(pass).equals(this.pass)) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }
