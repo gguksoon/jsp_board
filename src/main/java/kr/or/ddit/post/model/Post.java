@@ -1,6 +1,5 @@
 package kr.or.ddit.post.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Post {
@@ -13,7 +12,23 @@ public class Post {
 	private Date postModDate; 	// 수정일시
 	private int postStatus;  	// 삭제여부
 	private int postGn;			// 게시글 그룹번호
-	private int parentSeq;   	// 부모게시글번호
+	private Integer parentSeq;   	// 부모게시글번호
+	
+	public Post() {	}
+	
+	public Post(int postSeq, int boardSeq, String postNm, String postContent, String userId, Date postRegDate,
+			Date postModDate, int postStatus, int postGn, Integer parentSeq) {
+		this.postSeq = postSeq;
+		this.boardSeq = boardSeq;
+		this.postNm = postNm;
+		this.postContent = postContent;
+		this.userId = userId;
+		this.postRegDate = postRegDate;
+		this.postModDate = postModDate;
+		this.postStatus = postStatus;
+		this.postGn = postGn;
+		this.parentSeq = parentSeq;
+	}
 	
 	public int getPostSeq() {
 		return postSeq;
@@ -69,10 +84,10 @@ public class Post {
 	public void setPostGn(int postGn) {
 		this.postGn = postGn;
 	}
-	public int getParentSeq() {
+	public Integer getParentSeq() {
 		return parentSeq;
 	}
-	public void setParentSeq(int parentSeq) {
+	public void setParentSeq(Integer parentSeq) {
 		this.parentSeq = parentSeq;
 	}
 	

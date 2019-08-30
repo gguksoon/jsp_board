@@ -80,45 +80,55 @@
 						<div class="table-responsive">
 							<table class="table">
 								<tr>
-									<th>게시글 번호</th>
-									<th>제목</th>
-									<th>작성자 아이디</th>
-									<th>작성일시</th>
+									<th class="text-center">게시글 번호</th>
+									<th >제목</th>
+									<th class="text-center">작성자 아이디</th>
+									<th class="text-center">작성일시</th>
 								</tr>
 								
 								<c:forEach items="${postList}" var="post">
 <%-- 									<tr class="userTr" data-userId="${post.postSeq }"> --%>
 									<tr>
-										<td>${post.POSTSEQ}</td>
+										<td class="text-center">${post.POSTSEQ}</td>
 										<td>
 											<!-- 공백주기 -->
 											<c:forEach begin="2" end="${post.LEVEL }" var="i" step="1">
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<c:if test="${post.LEVEL == i}">
-													<span class="glyphicon glyphicon-menu-right"></span>
+													<c:choose>
+														<c:when test="${post.POSTSTATUS == 1}">
+															<span class="glyphicon glyphicon-menu-right"></span>
+														</c:when>
+														<c:otherwise>
+															<span class="glyphicon glyphicon-menu-right" style="color:silver;"></span>
+														</c:otherwise>
+													</c:choose>
+													
 												</c:if>
 											</c:forEach>
 											<!-- 게시글 제목 -->
 											<c:choose>
 												<c:when test="${post.POSTSTATUS == 1}">
-													${post.POSTNM}
+													<a href="${cp }/post?postSeq=${post.POSTSEQ }" style="color:black;">
+														${post.POSTNM}
+													</a>
 												</c:when>
 												<c:when test="${post.POSTSTATUS == 0}">
-													삭제된 게시글입니다.
+													<span style="color:silver;">삭제된 게시글입니다.</span>
 												</c:when>
 											</c:choose>
-												
-											
 										</td>
-										<td>${post.USERID}</td>
-										<td>${post.POSTREGDATE}</td>
+										<td class="text-center">${post.USERID}</td>
+										<td class="text-center">${post.POSTREGDATE}</td>
 									</tr>
 								</c:forEach>
 								
 							</table>
 						</div>
-
-						<a href="${cp }/userForm" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> 새글쓰기</a>
+												
+						<a href="${cp }/insertPost?boardSeq=${boardSeq }" class="btn btn-default pull-right">
+							<span class="glyphicon glyphicon-pencil"></span> 새글쓰기
+						</a>
 
 						<div class="text-center">
 							<ul class="pagination">

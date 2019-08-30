@@ -38,4 +38,31 @@ public class PostService implements IPostService {
 		return resultMap;
 	}
 
+	@Override
+	public Post getPost(int postSeq) {
+		SqlSession ss = MybatisUtil.getSession();
+		Post post = postDao.getPost(ss, postSeq);
+		ss.close();
+		
+		return post;
+	}
+
+	@Override
+	public int insertPost(Post post) {
+		SqlSession ss = MybatisUtil.getSession();
+		
+		int nextPostSeq = postDao.getPostNextSeq(ss);
+		post.setPostSeq(nextPostSeq);
+		
+		if(post.getPostGn() == 0)
+			post.setPostGn(postDao.getPostGnNextSeq(ss));
+			
+		postDao.insertPost(ss, post);
+		
+		ss.commit();
+		ss.close();
+		
+		return nextPostSeq;
+	}
+
 }

@@ -21,4 +21,36 @@
 		  from gs_post
 		 where boardSeq = #{boardSeq}
 	</select>
+	
+	<select id="getPost" parameterType="int" resultType="post">
+		select *
+		  from gs_post
+		 where postSeq = #{postSeq}
+	</select>
+	
+	<select id="getPostNextSeq" resultType="int">
+		select seq_post.nextVal
+		  from dual
+	</select>
+	
+	<insert id="insertPost" parameterType="post">
+		insert into gs_post
+		  values(#{postSeq},
+		  		 #{boardSeq},
+		  		 #{postNm},
+		  		 #{postContent},
+		  		 #{userId},
+		  		 #{postRegDate},
+		  		 null,
+		  		 #{postStatus},
+		  		 #{postGn},
+		  		 #{parentSeq, jdbcType=INTEGER})
+	</insert>
+	
+	<select id="getPostGnNextSeq" resultType="int">
+		select seq_postGn.nextVal
+		  from dual
+	</select>
+	
+	
 </mapper>
