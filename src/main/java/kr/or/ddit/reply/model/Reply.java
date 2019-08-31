@@ -7,9 +7,22 @@ public class Reply {
 	private int postSeq;         // 게시글 번호
 	private String userId;       // 사용자 아이디
 	private String replyContent; // 내용
-	private Date replyRegdate;   // 작성일시
-	private Date replyModdate;   // 수정일시
+	private Date replyRegDate;   // 작성일시
+	private Date replyModDate;   // 수정일시
 	private int replyStatus;     // 삭제여부
+	
+	public Reply() { }
+	
+	public Reply(int replySeq, int postSeq, String userId, String replyContent, Date replyRegDate, Date replyModDate,
+			int replyStatus) {
+		this.replySeq = replySeq;
+		this.postSeq = postSeq;
+		this.userId = userId;
+		this.replyContent = replyContent;
+		this.replyRegDate = replyRegDate;
+		this.replyModDate = replyModDate;
+		this.replyStatus = replyStatus;
+	}
 	
 	public int getReplySeq() {
 		return replySeq;
@@ -35,17 +48,17 @@ public class Reply {
 	public void setReplyContent(String replyContent) {
 		this.replyContent = replyContent;
 	}
-	public Date getReplyRegdate() {
-		return replyRegdate;
+	public Date getReplyRegDate() {
+		return replyRegDate;
 	}
-	public void setReplyRegdate(Date replyRegdate) {
-		this.replyRegdate = replyRegdate;
+	public void setReplyRegDate(Date replyRegDate) {
+		this.replyRegDate = replyRegDate;
 	}
-	public Date getReplyModdate() {
-		return replyModdate;
+	public Date getReplyModDate() {
+		return replyModDate;
 	}
-	public void setReplyModdate(Date replyModdate) {
-		this.replyModdate = replyModdate;
+	public void setReplyModDate(Date replyModDate) {
+		this.replyModDate = replyModDate;
 	}
 	public int getReplyStatus() {
 		return replyStatus;
@@ -57,7 +70,7 @@ public class Reply {
 	@Override
 	public String toString() {
 		return "Reply [replySeq=" + replySeq + ", postSeq=" + postSeq + ", userId=" + userId + ", replyContent="
-				+ replyContent + ", replyRegdate=" + replyRegdate + ", replyModdate=" + replyModdate + ", replyStatus="
+				+ replyContent + ", replyRegdate=" + replyRegDate + ", replyModdate=" + replyModDate + ", replyStatus="
 				+ replyStatus + "]";
 	}
 }

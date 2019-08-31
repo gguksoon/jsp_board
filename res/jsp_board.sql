@@ -38,8 +38,17 @@ insert into gs_post values (seq_post.nextval, 2, '세번째 글입니다', '내용3', 'br
 insert into gs_post values (seq_post.nextval, 2, '네번째 글입니다', '내용4', 'brown', sysdate, null, 1, 1, 1);
 insert into gs_post values (seq_post.nextval, 2, '다섯번째 글입니다', '내용5', 'brown', sysdate, null, 1, 2, 2);
  
- 
- 
+insert into gs_reply values(seq_reply.nextval, 1, 'brown', '댓글하나', sysdate, null, 1);
+insert into gs_reply values(seq_reply.nextval, 1, 'brown', '댓글둘', sysdate, null, 1);
+insert into gs_reply values(seq_reply.nextval, 1, 'brown', '댓글셋', sysdate, null, 0);
+insert into gs_reply values(seq_reply.nextval, 1, 'brown', '댓글넷', sysdate, null, 1);
+insert into gs_reply values(seq_reply.nextval, 1, 'brown', '댓글다섯', sysdate, null, 0);
+insert into gs_reply values(seq_reply.nextval, 1, 'brown', '댓글여섯', sysdate, null, 1);
+insert into gs_reply values(seq_reply.nextval, 1, 'sally', '댓글일곱', sysdate, null, 1);
+insert into gs_reply values(seq_reply.nextval, 1, 'sally', '댓글여덟', sysdate, null, 1);
+
+commit;
+
 -- page의 갯수만큼만 뽑아오는 쿼리문
  select * from gs_post;
 select a.*

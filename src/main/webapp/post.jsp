@@ -16,6 +16,12 @@
 <link rel="icon" href="../../favicon.ico">
 <title>Jsp-basicLib</title>
 <%@ include file="/commonJsp/basicLib.jsp" %>
+<style>
+	.repArea {
+		background: silver;
+	}
+</style>
+
 </head>
 
 <body>
@@ -38,15 +44,39 @@
 
 				<div class="row">
 					<div class="col-sm-10 blog-main">
+						<!-- 제목 -->
 						<h1>${post.postNm }</h1>
 						작성자: ${post.userId } | 작성일: ${post.postRegDate }
 						<hr>
+						<!-- 내용 -->
 						${post.postContent }
 						<hr> 
 						첨부파일:
 						<hr> 
-						댓글: 댓글작성버튼
+						<!-- 댓글 내용 -->
+						<c:forEach items="${replyList }" var="reply">
+							${reply.replyContent } [ ${reply.userId } / ${reply.replyRegDate } ]
+							<c:if test="${reply.userId == S_USERVO.userId }">
+								<span class="glyphicon glyphicon-remove"></span>
+							</c:if>
+							<br>
+						</c:forEach>
+						
+						<!-- 댓글 입력창 -->
+						<div class="form-group repArea">
+							<form method="post" action="${cp }/insertReply">
+								<input type="hidden" name="postSeq" value="${post.postSeq }"/>
+								<span class="col-sm-10">
+									<textarea class="form-control" rows="4" name="replyContent" id="replyContent" placeholder="댓글을 입력하세요." style="resize: none;"></textarea>
+								</span>
+								<span class="col-sm-2">
+								<button type="submit" class="btn btn-info btn-lg btn-block" style="height: 95px;">입력</button>
+								</span>
+							</form>
+						</div>
+						<br><br><br><br><br>
 						<hr>
+						<!-- 버튼 -->
 						수정, 삭제, 답글버튼		
 <%-- 						<a href="${cp }/insertPost?boardSeq=${boardSeq }" class="btn btn-default pull-right"> --%>
 <!-- 							<span class="glyphicon glyphicon-pencil"></span> 새글쓰기 -->
