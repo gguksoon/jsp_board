@@ -15,4 +15,10 @@
 			   sysdate, null, 1)
 	</insert>
 	
+	<update id="deleteReply" parameterType="int">
+		update gs_reply
+		   set replyStatus = 0
+		 where replySeq = #{replySeq}
+	</update>
+	
 </mapper>

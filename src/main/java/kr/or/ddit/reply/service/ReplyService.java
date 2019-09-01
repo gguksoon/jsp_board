@@ -38,4 +38,15 @@ public class ReplyService implements IReplyService {
 		return insertCnt;
 	}
 
+	@Override
+	public int deleteReply(int replySeq) {
+		SqlSession ss = MybatisUtil.getSession();
+		int deleteCnt = replyDao.deleteReply(ss, replySeq);
+		
+		ss.commit();
+		ss.close();
+		
+		return deleteCnt;
+	}
+
 }

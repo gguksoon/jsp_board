@@ -8,38 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import kr.or.ddit.reply.model.Reply;
 import kr.or.ddit.reply.service.IReplyService;
 import kr.or.ddit.reply.service.ReplyService;
 
-@WebServlet("/insertReply")
-public class InsertReplyController extends HttpServlet {
+@WebServlet("/deleteReply")
+public class DeleteReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static final Logger logger = LoggerFactory.getLogger(InsertReplyController.class);
-	
+    
 	private IReplyService replyService;
 	
 	@Override
 	public void init() throws ServletException {
 		replyService = new ReplyService();
 	}
-       
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		
 		int postSeq = Integer.parseInt(request.getParameter("postSeq"));
-		String userId = request.getParameter("userId");
-		String replyContent = request.getParameter("replyContent");
+		int replySeq = Integer.parseInt(request.getParameter("replySeq"));
 		
-		Reply reply = new Reply(0, postSeq, userId, replyContent, null, null, 1);
-		
-		logger.debug("{}, {}, {}", postSeq, userId, replyContent);
-		
-		replyService.insertReply(reply);
+		replyService.deleteReply(replySeq);
 		
 		response.sendRedirect(request.getContextPath() + "/post?postSeq=" + postSeq);
 	}

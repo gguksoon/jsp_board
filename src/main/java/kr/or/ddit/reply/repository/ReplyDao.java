@@ -17,7 +17,10 @@ public class ReplyDao implements IReplyDao {
 	public int insertReply(SqlSession ss, Reply reply) {
 		return ss.insert("reply.insertReply", reply);
 	}
-	
-	
+
+	@Override
+	public int deleteReply(SqlSession ss, int replySeq) {
+		return ss.update("reply.deleteReply", replySeq);
+	}
 
 }

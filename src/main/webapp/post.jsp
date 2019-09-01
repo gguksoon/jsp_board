@@ -17,11 +17,37 @@
 <title>Jsp-basicLib</title>
 <%@ include file="/commonJsp/basicLib.jsp" %>
 <style>
+	.replyList {
+ 		margin: 15px;
+	}
+	
+	.replyList .stat0 {
+		color: silver;
+		background-color: #F2F2F2;
+		padding: 20px;
+	}
+	
+	.replyList .stat1 {
+		background-color: #F2F2F2;
+		padding: 20px;
+	}
+	
 	.repArea {
 		background: silver;
 	}
 </style>
+<script>
+	$(function() {
+		$(".btnDeleteReply").on("click", function() {
+			var result = confirm("정말로 삭제하시겠습니까?");
+			
+			if(result) {
+				$(this).parent().parent().submit();
+			}
+		});
+	});
 
+</script>
 </head>
 
 <body>
@@ -54,18 +80,35 @@
 						첨부파일:
 						<hr> 
 						<!-- 댓글 내용 -->
-						<c:forEach items="${replyList }" var="reply">
-							${reply.replyContent } [ ${reply.userId } / ${reply.replyRegDate } ]
-							<c:if test="${reply.userId == S_USERVO.userId }">
-								<span class="glyphicon glyphicon-remove"></span>
-							</c:if>
-							<br>
-						</c:forEach>
-						
+						<div class="replyList"> 
+							<c:forEach items="${replyList }" var="reply">
+								<c:choose>
+									<c:when test="${reply.replyStatus == 1 }">
+										<form class="deleteReply" action="${cp }/deleteReply" method="post">
+											<p class="stat1">
+												${reply.replyContent } [ ${reply.userId } / ${reply.replyRegDate } ]
+												<c:if test="${reply.userId == S_USERVO.userId }">
+													<input type="hidden" name="postSeq" value="${post.postSeq }"/>
+													<input type="hidden" name="replySeq" value="${reply.replySeq }" />
+													<button type="button" class="btnDeleteReply btn btn-link btn-xs">
+														<span class="glyphicon glyphicon-remove"></span>
+													</button>
+												</c:if>
+											</p>
+										</form>
+									</c:when>
+									<c:otherwise>
+										<p class="stat0">삭제된 댓글입니다.</p>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</div>
+
 						<!-- 댓글 입력창 -->
 						<div class="form-group repArea">
 							<form method="post" action="${cp }/insertReply">
 								<input type="hidden" name="postSeq" value="${post.postSeq }"/>
+								<input type="hidden" name="userId" value="${S_USERVO.userId }"/>
 								<span class="col-sm-10">
 									<textarea class="form-control" rows="4" name="replyContent" id="replyContent" placeholder="댓글을 입력하세요." style="resize: none;"></textarea>
 								</span>

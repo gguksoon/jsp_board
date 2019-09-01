@@ -10,4 +10,6 @@ public interface IReplyService {
 	
 	public int insertReply(Reply reply);
 
+	public int deleteReply(int replySeq);
+
 }

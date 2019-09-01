@@ -12,4 +12,6 @@ public interface IReplyDao {
 
 	public int insertReply(SqlSession ss, Reply reply);
 
+	public int deleteReply(SqlSession ss, int replySeq);
+
 }

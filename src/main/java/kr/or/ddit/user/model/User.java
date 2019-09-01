@@ -3,6 +3,9 @@ package kr.or.ddit.user.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 
 public class User {

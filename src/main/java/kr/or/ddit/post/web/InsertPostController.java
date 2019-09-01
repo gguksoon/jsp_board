@@ -49,16 +49,6 @@ public class InsertPostController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		private int postSeq;		// 게시글 번호
-//		private int boardSeq;    	// 게시판 번호
-//		private String postNm;      // 게시글 제목
-//		private String postContent; // 게시글 내용
-//		private String userId;      // 작성자
-//		private Date postRegDate; 	// 작성일시
-//		private Date postModDate; 	// 수정일시
-//		private int postStatus;  	// 삭제여부
-//		private int postGn;			// 게시글 그룹번호
-//		private int parentSeq;   	// 부모게시글번호
 		request.setCharacterEncoding("UTF-8");
 		
 		request.setAttribute("boardList", boardService.getBoardList());
