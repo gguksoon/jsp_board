@@ -11,4 +11,6 @@ public interface IPostService {
 	public Post getPost(int postSeq);
 
 	public int insertPost(Post post);
+
+	public int deletePost(int postSeq);
 }

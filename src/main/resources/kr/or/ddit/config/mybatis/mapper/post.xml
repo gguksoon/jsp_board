@@ -52,5 +52,10 @@
 		  from dual
 	</select>
 	
+	<update id="deletePost" parameterType="int">
+		update gs_post
+		   set postStatus = 0
+		 where postSeq = #{postSeq}
+	</update>
 	
 </mapper>

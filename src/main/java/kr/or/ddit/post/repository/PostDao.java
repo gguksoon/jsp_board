@@ -39,4 +39,9 @@ public class PostDao implements IPostDao {
 		return ss.selectOne("post.getPostGnNextSeq");
 	}
 
+	@Override
+	public int deletePost(SqlSession ss, int postSeq) {
+		return ss.update("post.deletePost", postSeq);
+	}
+
 }

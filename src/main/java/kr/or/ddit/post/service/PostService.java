@@ -65,4 +65,15 @@ public class PostService implements IPostService {
 		return nextPostSeq;
 	}
 
+	@Override
+	public int deletePost(int postSeq) {
+		SqlSession ss = MybatisUtil.getSession();
+		int deleteCnt = postDao.deletePost(ss, postSeq);
+		
+		ss.commit();
+		ss.close();
+		
+		return deleteCnt;
+	}
+
 }

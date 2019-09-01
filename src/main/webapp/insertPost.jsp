@@ -14,7 +14,7 @@
 <%@ include file="/commonJsp/basicLib.jsp" %>
 <title>jsp_board</title>
 
-<script src="/SE2/js/HuskyEZCreator.js"></script>
+<script src="${cp }/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
 
@@ -23,7 +23,7 @@ $(document).ready(function() {
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef : oEditors, // 전역변수 명과 동일해야 함.
 		elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
-		sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
+		sSkinURI : "${cp }/SE2/SmartEditor2Skin.html", // Editor HTML
 		fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
 		htParams : {
 			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -90,6 +90,8 @@ function validation(){
 				<h2 class="sub-header">새글쓰기 | ${board.boardNm }</h2>
 				<form class="form-inline" action="${cp }/insertPost" method="post" id="frm">
 					<input type="hidden" name="boardSeq" value="${board.boardSeq }"/>
+					<input type="hidden" name="postSeq" value="${postSeq }"/>
+					<input type="hidden" name="postGn" value="${postGn }"/>
 					<input type="hidden" name="userId" value="${S_USERVO.userId }"/>
 					<br>	
 					<div class="form-group">

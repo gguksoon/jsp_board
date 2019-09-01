@@ -35,6 +35,10 @@
 	.repArea {
 		background: silver;
 	}
+	
+	.btnGroup {
+		margin-right: 10px;
+	}
 </style>
 <script>
 	$(function() {
@@ -44,6 +48,22 @@
 			if(result) {
 				$(this).parent().parent().submit();
 			}
+		});
+		
+		$("#btnInsertRePost").on("click", function() {
+ 			$("#insertRePost").submit();
+		});
+		
+		$("#btnDeletePost").on("click", function() {
+			var result = confirm("정말로 삭제하시겠습니까?");
+			
+			if(result) {
+				$("#deletePost").submit();
+			}
+		});
+		
+		$("#btnUpdatePost").on("click", function() {
+// 			updatePost
 		});
 	});
 
@@ -119,12 +139,26 @@
 						</div>
 						<br><br><br><br><br>
 						<hr>
-						<!-- 버튼 -->
-						수정, 삭제, 답글버튼		
-<%-- 						<a href="${cp }/insertPost?boardSeq=${boardSeq }" class="btn btn-default pull-right"> --%>
-<!-- 							<span class="glyphicon glyphicon-pencil"></span> 새글쓰기 -->
-<!-- 						</a> -->
-
+						<form id="updatePost" method="post" action="${cp }/modifyPost">
+						</form>
+						
+						<form id="deletePost" method="post" action="${cp }/deletePost">
+							<input type="hidden" name="postSeq" value="${post.postSeq }">
+							<input type="hidden" name="boardSeq" value="${post.boardSeq }">
+						</form>
+						
+						<form id="insertRePost" method="get" action="${cp }/insertPost?">
+							<input type="hidden" name="postSeq" value="${post.postSeq }">
+							<input type="hidden" name="postGn" value="${post.postGn }">
+							<input type="hidden" name="boardSeq" value="${post.boardSeq }">
+						</form>
+						
+						<button type="button" id="btnInsertRePost" class="btn btn-default btn-md pull-right btnGroup"><span class="glyphicon glyphicon-pencil"></span> 답글</button>
+						<c:if test="${post.userId == S_USERVO.userId}">
+							<button type="button" id="btnDeletePost" class="btn btn-default btn-md pull-right btnGroup"><span class="glyphicon glyphicon-remove"></span> 삭제</button>
+							<button type="button" id="btnUpdatePost" class="btn btn-default btn-md pull-right btnGroup"><span class="glyphicon glyphicon-wrench"></span> 수정</button>
+						</c:if>
+						
 						<div class="text-center">
 							
 						</div>

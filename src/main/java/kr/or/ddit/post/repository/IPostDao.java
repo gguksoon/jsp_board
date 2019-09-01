@@ -20,4 +20,6 @@ public interface IPostDao {
 	public int getPostNextSeq(SqlSession ss);
 
 	public int getPostGnNextSeq(SqlSession ss);
+
+	public int deletePost(SqlSession ss, int postSeq);
 }
