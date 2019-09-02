@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.ddit.board.model.Board;
-import kr.or.ddit.common.model.Page;
 
 public class BoardDao implements IBoardDao {
 
@@ -74,19 +73,6 @@ public class BoardDao implements IBoardDao {
 	@Override
 	public int updateBoard(SqlSession ss, Board board) {
 		return ss.update("board.updateBoard", board);
-	}
-
-	/**
-	* Method : deleteBoard
-	* 작성자 : Jo Min-Soo
-	* 변경이력 :
-	* @param ss
-	* @return
-	* Method 설명 : 게시판 삭제
-	*/
-	@Override
-	public int deleteBoard(SqlSession ss, String boardSeq) {
-		return ss.delete("board.deleteBoard", boardSeq);
 	}
 
 }

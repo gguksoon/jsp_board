@@ -63,8 +63,17 @@
 		});
 		
 		$("#btnUpdatePost").on("click", function() {
-// 			updatePost
+ 			$("#updatePost").submit();
 		});
+		
+		// 댓글 글자 제한
+		$("textarea").keyup(function() {
+			var len = $(this).val().length;
+			if(len >= 500) {
+				$(this).val($(this).val().slice(0, 500));
+				alert("댓글은 500자를 넘길 수 없습니다.")
+			}
+		})
 	});
 
 </script>
@@ -97,7 +106,13 @@
 						<!-- 내용 -->
 						${post.postContent }
 						<hr> 
-						첨부파일:
+						첨부파일:<br>
+						<c:forEach items="${fileList }" var="file">
+					         <a href="${cp }/fileDownload?fileSeq=${file.fileSeq }" class="btn btn-default btn-sm" download="tt">
+       							<span class="glyphicon glyphicon-download-alt"></span> Download
+       						</a>
+							${file.fileName }<br>
+						</c:forEach>
 						<hr> 
 						<!-- 댓글 내용 -->
 						<div class="replyList"> 
@@ -133,13 +148,15 @@
 									<textarea class="form-control" rows="4" name="replyContent" id="replyContent" placeholder="댓글을 입력하세요." style="resize: none;"></textarea>
 								</span>
 								<span class="col-sm-2">
-								<button type="submit" class="btn btn-info btn-lg btn-block" style="height: 95px;">입력</button>
+								<button type="submit" class="btn btn-default btn-lg btn-block" style="height: 95px;">입력</button>
 								</span>
 							</form>
 						</div>
 						<br><br><br><br><br>
 						<hr>
-						<form id="updatePost" method="post" action="${cp }/modifyPost">
+						<form id="updatePost" method="get" action="${cp }/updatePost">
+							<input type="hidden" name="postSeq" value="${post.postSeq }">
+							<input type="hidden" name="boardSeq" value="${post.boardSeq }">
 						</form>
 						
 						<form id="deletePost" method="post" action="${cp }/deletePost">
@@ -147,7 +164,7 @@
 							<input type="hidden" name="boardSeq" value="${post.boardSeq }">
 						</form>
 						
-						<form id="insertRePost" method="get" action="${cp }/insertPost?">
+						<form id="insertRePost" method="get" action="${cp }/insertPost">
 							<input type="hidden" name="postSeq" value="${post.postSeq }">
 							<input type="hidden" name="postGn" value="${post.postGn }">
 							<input type="hidden" name="boardSeq" value="${post.boardSeq }">

@@ -18,6 +18,14 @@ public class ReplyService implements IReplyService {
 	}
 
 	
+	/**
+	* Method : getReplyList
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param postSeq
+	* @return
+	* Method 설명 : postSeq에 해당하는 댓글리스트 반환
+	*/
 	@Override
 	public List<Reply> getReplyList(int postSeq) {
 		SqlSession ss = MybatisUtil.getSession();
@@ -27,6 +35,14 @@ public class ReplyService implements IReplyService {
 		return replyList;
 	}
 
+	/**
+	* Method : insertReply
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param reply
+	* @return
+	* Method 설명 : 댓글 추가
+	*/
 	@Override
 	public int insertReply(Reply reply) {
 		SqlSession ss = MybatisUtil.getSession();
@@ -38,6 +54,14 @@ public class ReplyService implements IReplyService {
 		return insertCnt;
 	}
 
+	/**
+	* Method : deleteReply
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param replySeq
+	* @return
+	* Method 설명 : 댓글 삭제
+	*/
 	@Override
 	public int deleteReply(int replySeq) {
 		SqlSession ss = MybatisUtil.getSession();

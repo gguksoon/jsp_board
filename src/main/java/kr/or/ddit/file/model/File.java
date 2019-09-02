@@ -5,6 +5,15 @@ public class File {
 	private String fileName;    	// 업로드파일명
 	private String realFileName;	// 실제파일경로
 	private int postSeq;        	// 게시글 번호
+
+	public File() {	}
+	
+	public File(int fileSeq, String fileName, String realFileName, int postSeq) {
+		this.fileSeq = fileSeq;
+		this.fileName = fileName;
+		this.realFileName = realFileName;
+		this.postSeq = postSeq;
+	}
 	
 	public int getFileSeq() {
 		return fileSeq;

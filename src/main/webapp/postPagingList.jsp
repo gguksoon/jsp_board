@@ -132,21 +132,41 @@
 
 						<div class="text-center">
 							<ul class="pagination">
+							
+							
+								<!--   <<   -->
 								<c:choose>
-									<c:when test="${pageVo.page == 1 }">
+									<c:when test="${pageVo.page == 1 || (paginationSize == 0) }">
 										<li class="disabled">
 											<span aria-hidden="true">&laquo;</span>
 										</li>
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="${cp }/postPagingList?boardSeq=${boardSeq }&page=${pageVo.page - 1}" aria-label="Previous">
+											<a href="${cp }/postPagingList?boardSeq=${boardSeq }&page=1" aria-label="Previous">
 												<span aria-hidden="true">&laquo;</span>
 											</a>
 										</li>
 									</c:otherwise>
 								</c:choose>
 								
+								<!--   <   -->
+								<c:choose>
+									<c:when test="${pageVo.page == 1 }">
+										<li class="disabled">
+											<span aria-hidden="true">&lt;</span>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="${cp }/postPagingList?boardSeq=${boardSeq }&page=${pageVo.page - 1}" aria-label="Previous">
+												<span aria-hidden="true">&lt;</span>
+											</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+								
+								<!--   page   출력 -->
 								<c:forEach begin="1" end="${paginationSize }" var="idx">
 									<c:choose>
 										<c:when test="${idx == pageVo.page }">
@@ -161,15 +181,33 @@
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
+								
+								<!--   >   -->
 								<c:choose>
 									<c:when test="${(pageVo.page == paginationSize) || (paginationSize == 0) }">
+										<li class="disabled">
+											<span aria-hidden="true">&gt;</span>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="${cp }/postPagingList?boardSeq=${boardSeq }&page=${pageVo.page + 1}" aria-label="Previous">
+												<span aria-hidden="true">&gt;</span>
+											</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+								
+								<!--   >>   -->
+								<c:choose>
+									<c:when test="${pageVo.page == paginationSize || (paginationSize == 0) }">
 										<li class="disabled">
 											<span aria-hidden="true">&raquo;</span>
 										</li>
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="${cp }/postPagingList?boardSeq=${boardSeq }&page=${pageVo.page + 1}" aria-label="Previous">
+											<a href="${cp }/postPagingList?boardSeq=${boardSeq }&page=${paginationSize }" aria-label="Previous">
 												<span aria-hidden="true">&raquo;</span>
 											</a>
 										</li>

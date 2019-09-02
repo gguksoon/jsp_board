@@ -18,7 +18,6 @@ import kr.or.ddit.common.model.Page;
 import kr.or.ddit.post.model.Post;
 import kr.or.ddit.post.service.IPostService;
 import kr.or.ddit.post.service.PostService;
-import kr.or.ddit.user.model.User;
 
 @WebServlet("/postPagingList")
 public class PostPagingListController extends HttpServlet {

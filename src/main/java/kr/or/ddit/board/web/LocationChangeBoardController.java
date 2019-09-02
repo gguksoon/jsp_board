@@ -17,7 +17,6 @@ import kr.or.ddit.board.service.IBoardService;
 @WebServlet("/locationChangeBoard")
 public class LocationChangeBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static final Logger logger = LoggerFactory.getLogger(LocationChangeBoardController.class);
     
     private IBoardService boardService;
     

@@ -58,4 +58,12 @@
 		 where postSeq = #{postSeq}
 	</update>
 	
+	<update id="updatePost" parameterType="post">
+		update gs_post
+		   set postNm = #{postNm},
+		       postContent = #{postContent},
+		       postModDate = #{postModDate}
+		 where postSeq = #{postSeq}
+	</update>
+	
 </mapper>

@@ -19,6 +19,14 @@ public class PostService implements IPostService {
 		postDao = new PostDao();
 	}
 	
+	/**
+	* Method : getPostPagingList
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param map
+	* @return
+	* Method 설명 : 게시글 페이징리스트 반환
+	*/
 	@Override
 	public Map<String, Object> getPostPagingList(Map<String, Object> map) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -38,6 +46,14 @@ public class PostService implements IPostService {
 		return resultMap;
 	}
 
+	/**
+	* Method : getPost
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param postSeq
+	* @return
+	* Method 설명 : postSeq에 해당하는 게시글 반환
+	*/
 	@Override
 	public Post getPost(int postSeq) {
 		SqlSession ss = MybatisUtil.getSession();
@@ -47,6 +63,14 @@ public class PostService implements IPostService {
 		return post;
 	}
 
+	/**
+	* Method : insertPost
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param post
+	* @return
+	* Method 설명 : 게시글 추가
+	*/
 	@Override
 	public int insertPost(Post post) {
 		SqlSession ss = MybatisUtil.getSession();
@@ -65,6 +89,14 @@ public class PostService implements IPostService {
 		return nextPostSeq;
 	}
 
+	/**
+	* Method : deletePost
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param postSeq
+	* @return
+	* Method 설명 : 게시글 삭제
+	*/
 	@Override
 	public int deletePost(int postSeq) {
 		SqlSession ss = MybatisUtil.getSession();
@@ -74,6 +106,25 @@ public class PostService implements IPostService {
 		ss.close();
 		
 		return deleteCnt;
+	}
+
+	/**
+	* Method : updatePost
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param post
+	* @return
+	* Method 설명 : 게시글 수정
+	*/
+	@Override
+	public int updatePost(Post post) {
+		SqlSession ss = MybatisUtil.getSession();
+		int updateCnt = postDao.updatePost(ss, post);
+		
+		ss.commit();
+		ss.close();
+		
+		return updateCnt;
 	}
 
 }

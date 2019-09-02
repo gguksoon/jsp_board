@@ -30,6 +30,14 @@ public class Post {
 		this.parentSeq = parentSeq;
 	}
 	
+	
+	public Post(int postSeq, String postNm, String postContent, Date postModDate) {
+		this.postSeq = postSeq;
+		this.postNm = postNm;
+		this.postContent = postContent;
+		this.postModDate = postModDate;
+	}
+
 	public int getPostSeq() {
 		return postSeq;
 	}

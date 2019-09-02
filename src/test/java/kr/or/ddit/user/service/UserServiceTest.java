@@ -1,29 +1,26 @@
-package kr.or.ddit.user.repository;
+package kr.or.ddit.user.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import kr.or.ddit.user.model.User;
-import kr.or.ddit.util.MybatisUtil;
 
-public class UserDaoTest {
+public class UserServiceTest {
 
-	private SqlSession ss;
-	private IUserDao userDao;
+	private IUserService userService;
 	
 	@Before
 	public void setUp() throws Exception {
-		userDao = new UserDao();
-		ss = MybatisUtil.getSession();
+		userService = new UserService();
 	}
-	
+
 	@After
 	public void tearDown() throws Exception {
-		ss.close();
 	}
 
 	/**
@@ -38,7 +35,7 @@ public class UserDaoTest {
 		String userId = "brown";
 
 		/***When***/
-		User user = userDao.getUser(ss, userId);
+		User user = userService.getUser(userId);
 
 		/***Then***/
 		assertEquals("브라운", user.getUserNm());

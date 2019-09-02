@@ -46,16 +46,6 @@ public interface IBoardService {
 	public int updateBoard(Board board);
 	
 	/**
-	* Method : deleteBoard
-	* 작성자 : Jo Min-Soo
-	* 변경이력 :
-	* @param boardSeq
-	* @return
-	* Method 설명 : 게시판 삭제
-	*/
-	public int deleteBoard(String boardSeq);
-
-	/**
 	* Method : locationChange
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :

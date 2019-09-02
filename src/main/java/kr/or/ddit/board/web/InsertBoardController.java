@@ -29,7 +29,7 @@ public class InsertBoardController extends HttpServlet {
 		String userId = request.getParameter("userId");
 		int boardStatus = request.getParameter("boardStatus").equals("사용") ? 1 : 0;
 		
-		Board board = new Board(0, boardNm, "brown", 0, boardStatus);
+		Board board = new Board(0, boardNm, userId, 0, boardStatus);
 		
 		boardService.insertBoard(board);
 		

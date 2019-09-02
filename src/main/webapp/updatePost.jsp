@@ -1,6 +1,7 @@
 <%@page import="kr.or.ddit.user.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +36,8 @@ $(document).ready(function() {
 	});
 
 	// 전송버튼 클릭이벤트
-	$("#insertBtn").click(function(){
-		if(confirm("작성하시겠습니까?")) {
+	$("#updateBtn").click(function(){
+		if(confirm("수정하시겠습니까?")) {
 			// id가 smarteditor인 textarea에 에디터에서 대입
 			oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
 
@@ -49,12 +50,12 @@ $(document).ready(function() {
 	
 	$("#files").on("change", function() {
 		console.log("length: " + this.files.length);
-		if(this.files.length > 5) { // 파일의 갯수가 5개 초과일 때
+		if(this.files.length > (5 - $(".deleteRegFile").length)) { // 파일의 갯수가 5개 초과일 때
 			alert("파일의 갯수는 5개를 초과할 수 없습니다.");
 			$(this).val("");
 		}
 	});
-		
+	
 });
 
 
@@ -86,23 +87,27 @@ function validation(){
 			
 			<!-- contents -->
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h2 class="sub-header">새글쓰기 | ${board.boardNm }</h2>
-				<form class="form-inline" action="${cp }/insertPost" method="post" id="frm" enctype="multipart/form-data">
-					<input type="hidden" name="boardSeq" value="${board.boardSeq }"/>
-					<input type="hidden" name="postSeq" value="${postSeq }"/>
-					<input type="hidden" name="postGn" value="${postGn }"/>
-					<input type="hidden" name="userId" value="${S_USERVO.userId }"/>
+				<h2 class="sub-header">게시글 수정 | ${board.boardNm }</h2>
+				<form class="form-inline" action="${cp }/updatePost" method="post" id="frm" enctype="multipart/form-data">
+					<input type="hidden" name="postSeq" value="${post.postSeq }"/>
 					<br>	
 					<div class="form-group">
 						<label for="postNm" style="width: 48px;">제목: </label>
-						<input name="postNm" class="form-control" required style="width: 750px;"/>
+						<input name="postNm" class="form-control" required style="width: 750px;" value="${post.postNm }"/>
 					</div>
 					
 					<br><br>
-					<textarea name="content" id="smarteditor" rows="10" cols="100" class="col-sm-10" style="width:800px; height:500px;"></textarea>
+					<textarea name="content" id="smarteditor" rows="10" cols="100" class="col-sm-10" style="width:800px; height:500px;">${post.postContent }</textarea>
 					<br><br>
+					<label class="col-sm-3 control-label">첨부된 파일: </label><br>
+					<c:forEach items="${fileList }" var="file">
+						- ${file.fileName } <a href="${cp }/deleteFile?fileSeq=${file.fileSeq }&postSeq=${post.postSeq }&boardSeq=${board.boardSeq }" class="btn btn-default deleteRegFile"><span class="glyphicon glyphicon-remove"></span></a>
+						<br>
+					</c:forEach>
+					<br>
+					
 					<div class="form-group">
-						<label for="files" class="col-sm-2 control-label">첨부파일</label>
+						<label for="files" class="col-sm-2 control-label">첨부파일: </label>
 						<div class="col-sm-10">
 							<input type="file" multiple="multiple" class="form-control" id="files" name="files" placeholder="첨부파일">
 						</div>
@@ -113,8 +118,8 @@ function validation(){
 							<span class="glyphicon glyphicon-remove"></span> 취소
 						</button> 
 						
-						<button type="button" id="insertBtn" class="btn btn-default pull-right">
-							<span class="glyphicon glyphicon-ok"></span> 작성
+						<button type="button" id="updateBtn" class="btn btn-default pull-right">
+							<span class="glyphicon glyphicon-ok"></span> 수정
 						</button>
 					</div>
 				</form>

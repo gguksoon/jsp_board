@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IBoardService;
+import kr.or.ddit.file.model.File;
+import kr.or.ddit.file.service.FileService;
+import kr.or.ddit.file.service.IFileService;
 import kr.or.ddit.post.model.Post;
 import kr.or.ddit.post.service.IPostService;
 import kr.or.ddit.post.service.PostService;
@@ -25,17 +25,17 @@ import kr.or.ddit.reply.service.ReplyService;
 public class PostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
-	
 	private IBoardService boardService;
 	private IPostService postService;
 	private IReplyService replyService;
+	private IFileService fileService;
 	
 	@Override
 	public void init() throws ServletException {
 		boardService = new BoardService();
 		postService = new PostService();
 		replyService = new ReplyService();
+		fileService = new FileService();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,6 +47,9 @@ public class PostController extends HttpServlet {
 		
 		List<Reply> replyList = replyService.getReplyList(postSeq);
 		request.setAttribute("replyList", replyList);
+		
+		List<File> fileList = fileService.getFileList(postSeq);
+		request.setAttribute("fileList", fileList);
 		
 		request.getRequestDispatcher("/post.jsp").forward(request, response);
 	}

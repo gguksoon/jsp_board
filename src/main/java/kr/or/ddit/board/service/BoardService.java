@@ -89,25 +89,6 @@ public class BoardService implements IBoardService {
 	}
 
 	/**
-	* Method : deleteBoard
-	* 작성자 : Jo Min-Soo
-	* 변경이력 :
-	* @param boardSeq
-	* @return
-	* Method 설명 : 게시판 삭제
-	*/
-	@Override
-	public int deleteBoard(String boardSeq) {
-		SqlSession ss = MybatisUtil.getSession();
-		int deleteCnt = boardDao.deleteBoard(ss, boardSeq);
-		
-		ss.commit();
-		ss.close();
-		
-		return deleteCnt;
-	}
-
-	/**
 	* Method : locationChange
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :

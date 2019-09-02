@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import kr.or.ddit.board.model.Board;
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.file.model.File;
@@ -24,13 +25,13 @@ import kr.or.ddit.post.service.PostService;
 import kr.or.ddit.util.FileuploadUtil;
 
 @MultipartConfig()
-@WebServlet("/insertPost")
-public class InsertPostController extends HttpServlet {
+@WebServlet("/updatePost")
+public class UpdatePostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private IBoardService boardService;
-	private IPostService postService;
-	private IFileService fileService;
+	
+	IBoardService boardService;
+	IPostService postService;
+	IFileService fileService;
 	
 	@Override
 	public void init() throws ServletException {
@@ -41,50 +42,38 @@ public class InsertPostController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 새글, 답글 모두 적용
-		request.setAttribute("boardList", boardService.getBoardList());
-		request.setAttribute("board", boardService.getBoard(request.getParameter("boardSeq")));
+		request.setCharacterEncoding("UTF-8");
 		
-		// 아래 부터는 답글인 경우만
-		String paramPostSeq = request.getParameter("postSeq");
-		String paramPostGn = request.getParameter("postGn");
+		List<Board> boardList = boardService.getBoardList();
 		
-		int postSeq = paramPostSeq == null ? 0 : Integer.parseInt(paramPostSeq); 
-		int postGn = paramPostGn == null ? 0 : Integer.parseInt(paramPostGn);
+		String boardSeq = request.getParameter("boardSeq");
+		Board board = boardService.getBoard(boardSeq);
 		
-		if(postSeq != 0 && postGn != 0) {
-			request.setAttribute("postSeq", postSeq);
-			request.setAttribute("postGn", postGn);
-		}
+		int postSeq = Integer.parseInt(request.getParameter("postSeq"));
 		
-		// forward
-		request.getRequestDispatcher("/insertPost.jsp").forward(request, response);
+		Post post = postService.getPost(postSeq);
+		List<File> fileList = fileService.getFileList(postSeq);
+		
+		request.setAttribute("boardList", boardList);
+		request.setAttribute("board", board);
+		request.setAttribute("post", post);
+		request.setAttribute("fileList", fileList);
+		
+		request.getRequestDispatcher("/updatePost.jsp").forward(request, response);
 	}
-	
+       
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
 		request.setAttribute("boardList", boardService.getBoardList());
 		
-		int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
-		String userId = request.getParameter("userId");
+		int postSeq = Integer.parseInt(request.getParameter("postSeq"));
 		String postNm = request.getParameter("postNm");
 		String postContent = request.getParameter("content");
 		
-		String paramGn = request.getParameter("postGn");
-		int postGn = 0;
-		if(!paramGn.equals("")) postGn = Integer.parseInt(paramGn) + 1;
+		Post post = new Post(postSeq, postNm, postContent, new Date());
 		
-		String paramParentSeq = request.getParameter("postSeq");
-		Integer parentSeq = null;
-		if(!paramParentSeq.equals("")) parentSeq = Integer.parseInt(paramParentSeq);
-		
-		Post post = new Post(0, boardSeq, postNm, postContent, userId,
-							 new Date(), new Date(), 1, postGn, parentSeq);
-		
-		int postSeq = postService.insertPost(post);
-		Post resultPost = postService.getPost(postSeq);
-		request.setAttribute("post", resultPost);
+		postService.updatePost(post);
 		
 		//====================================================================
 		List<Part> parts = (List<Part>) request.getParts();
@@ -108,8 +97,7 @@ public class InsertPostController extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/post?postSeq=" + resultPost.getPostSeq());
-		//====================================================================
+		response.sendRedirect(request.getContextPath() + "/post?postSeq=" + postSeq);
 	}
 
 }

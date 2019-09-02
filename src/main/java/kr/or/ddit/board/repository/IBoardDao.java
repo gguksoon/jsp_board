@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.ddit.board.model.Board;
-import kr.or.ddit.common.model.Page;
 
 public interface IBoardDao {
 
@@ -63,14 +62,4 @@ public interface IBoardDao {
 	*/
 	public int updateBoard(SqlSession ss, Board board);
 	
-	/**
-	* Method : deleteBoard
-	* 작성자 : Jo Min-Soo
-	* 변경이력 :
-	* @param ss
-	* @param boardSeq
-	* @return
-	* Method 설명 : 게시판 삭제
-	*/
-	public int deleteBoard(SqlSession ss, String boardSeq);
 }

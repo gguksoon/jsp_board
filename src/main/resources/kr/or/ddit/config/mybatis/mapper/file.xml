@@ -5,7 +5,25 @@
 <mapper namespace="file">
 	
 	<insert id="insertFile" parameterType="file">
-		
+		insert into gs_file
+		 values (seq_file.nextval, #{fileName}, #{realFileName}, #{postSeq})		
 	</insert>
+	
+	<select id="getFileList" parameterType="int" resultType="file">
+		select *
+		  from gs_file
+		 where postSeq = #{postSeq}
+	</select>
+	
+	<select id="getFile" parameterType="int" resultType="file">
+		select *
+		  from gs_file
+		 where fileSeq = #{fileSeq}
+	</select>
+	
+	<delete id="deleteFile" parameterType="int">
+		delete gs_file
+		 where fileSeq = #{fileSeq}
+	</delete>
 	
 </mapper>
