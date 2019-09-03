@@ -59,7 +59,7 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		String pass = request.getParameter("pass");
-		String rememberMe = request.getParameter("remember");
+		String rememberMe = request.getParameter("rememberMe");
 		
 		manageUserIdCookie(response, userId, rememberMe);
 		

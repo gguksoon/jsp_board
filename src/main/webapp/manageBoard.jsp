@@ -117,6 +117,7 @@
 						<h2 class="sub-header">게시판 추가</h2>
 						<form class="form-inline" method="post" action="${cp }/insertBoard">
 							<input type="text" class="form-control" name="boardNm" placeholder="게시판 이름"/>
+							<input type="hidden" name="userId" value="${S_USERVO.userId }"/>
 							<select name="boardStatus" class="form-control">
 								<option selected>사용</option>
 								<option>미사용</option>
