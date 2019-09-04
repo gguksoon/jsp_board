@@ -4,23 +4,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
+	
+<title>gguksoon_JSP-Board</title>
 
-<title>jsp_board</title>
+<!-- CSS -->
+<%@ include file="/commonJsp/cssLib.jsp" %>
 
-<%@ include file="/commonJsp/basicLib.jsp" %>
-
+<script src="${cp }/js/jquery-3.4.1.min.js"></script>
 <script>
 	$(function() {
-		$(".btnUp").first().attr("class", "btn disabled");
-		$(".btnDown").last().attr("class", "btn disabled");
+		$(".btnUp").first().attr("disabled", "disabled");
+		$(".btnDown").last().attr("disabled", "disabled");
 		
 		$(".btnUp").on("click", function() {
 			var pForm = $(this).parent($("form"));
@@ -54,81 +55,105 @@
 			$(pForm).submit();
 		});
 		
-	})
-	
+	});
 </script>
 
 </head>
 
-<body>
-	<!-- header -->
-	<%@ include file="/header.jsp" %> 
+<body id="page-top">
 
-	<div class="container-fluid">
-		<div class="row">
+	<!-- nav -->
+	<%@ include file="/nav.jsp" %>
 
-			<div class="col-sm-3 col-md-2 sidebar">
-				<!-- left -->
-				<%@ include file="/left.jsp" %>
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<%@ include file="/left.jsp"%>
+
+		<div id="content-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="${cp }/main">JSP</a></li>
+					<li class="breadcrumb-item active">게시판 관리</li>
+				</ol>
+
+				<!-- Page Content -->
+				<h2 class="sub-header"><i class="fas fa-wrench"></i> 게시판 관리</h2>
+				<c:forEach items="${boardList}" var="board">
+					<form class="form-inline boardForm" method="post">
+						<input type="hidden" class="boardSeq" name="boardSeq" value="${board.boardSeq }"/>
+						<input type="hidden" class="userId" name="userId" value="${board.userId }"/>
+						<input type="hidden" class="boardLocation" name="boardLocation" value="${board.boardLocation }"/>
+						<input type="hidden" class="change" name="change"/>
+
+						<button type="button" class="btn btn-outline-dark btnUp">
+       						<i class="fas fa-angle-up"></i>
+     					</button>
+						<button type="button" class="btn btn-outline-dark btnDown">
+       						<i class="fas fa-angle-down"></i>
+     					</button>
+						
+						<input type="text" class="form-control" name="boardNm" value="${board.boardNm }"/>
+						
+						<c:choose>
+								<c:when test="${board.boardStatus == 0}"> <%-- 미사용 --%>
+									<select name="boardStatus" class="form-control">
+								        <option>사용</option>
+								        <option selected>미사용</option>
+								    </select>
+								</c:when>
+								<c:otherwise>	<%-- 사용 --%>
+									<select name="boardStatus" class="form-control">
+								        <option selected>사용</option>
+								        <option>미사용</option>
+								    </select>
+								</c:otherwise>
+						</c:choose>
+						
+						<button type="button" class="btn btn-dark updateBtn">수정</button>
+     					<br><br>
+					</form>
+				</c:forEach>
+				
+				<br><br><br>
+				
+				<h2 class="sub-header"><i class="fas fa-wrench"></i> 게시판 추가</h2>
+				<form class="form-inline" method="post" action="${cp }/insertBoard">
+					<input type="text" class="form-control" name="boardNm" placeholder="게시판 이름"/>
+					<input type="hidden" name="userId" value="${S_USERVO.userId }"/>
+					<select name="boardStatus" class="form-control">
+						<option selected>사용</option>
+						<option>미사용</option>
+					</select>
+					<button type="submit" class="btn btn-dark insertBtn">추가</button>
+				</form>
+				<!-- ------------------------------------------------------------------------ -->
+
 			</div>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<!-- /.container-fluid -->
 
-				<div class="row">
-					<div class="col-sm-12 blog-main">
-						<h2 class="sub-header">게시판 관리</h2>
-						<c:forEach items="${boardList}" var="board">
-								<form class="form-inline boardForm" method="post">
-									<input type="hidden" class="boardSeq" name="boardSeq" value="${board.boardSeq }"/>
-									<input type="hidden" class="userId" name="userId" value="${board.userId }"/>
-									<input type="hidden" class="boardLocation" name="boardLocation" value="${board.boardLocation }"/>
-									<input type="hidden" class="change" name="change"/>
+			<!-- Sticky Footer -->
+			<%@ include file="/footer.jsp" %>
 
-									<button type="button" class="btn btn-default btnUp">
-	         								<span class="glyphicon glyphicon-menu-up"></span>
-	       							</button>
-									<button type="button" class="btn btn-default btnDown">
-	         								<span class="glyphicon glyphicon-menu-down"></span>
-	       							</button>
-									
-									<input type="text" class="form-control" name="boardNm" value="${board.boardNm }"/>
-									<c:choose>
-											<c:when test="${board.boardStatus == 0}"> <%-- 미사용 --%>
-												<select name="boardStatus" class="form-control">
-											        <option>사용</option>
-											        <option selected>미사용</option>
-											    </select>
-											</c:when>
-											<c:otherwise>	<%-- 사용 --%>
-												<select name="boardStatus" class="form-control">
-											        <option selected>사용</option>
-											        <option>미사용</option>
-											    </select>
-											</c:otherwise>
-									</c:choose>
-									
-									<button type="button" class="btn btn-info updateBtn">수정</button>
-	       							<br><br>
-								</form>
-								
-						</c:forEach>
-						
-						<br><br><br>
-						
-						<h2 class="sub-header">게시판 추가</h2>
-						<form class="form-inline" method="post" action="${cp }/insertBoard">
-							<input type="text" class="form-control" name="boardNm" placeholder="게시판 이름"/>
-							<input type="hidden" name="userId" value="${S_USERVO.userId }"/>
-							<select name="boardStatus" class="form-control">
-								<option selected>사용</option>
-								<option>미사용</option>
-							</select>
-							<button type="submit" class="btn btn-info insertBtn">추가</button>
-						</form>
-						
-					</div>
-				</div>
-			</div>
 		</div>
+		<!-- /.content-wrapper -->
+
 	</div>
+	<!-- /#wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<%@ include file="/modal.jsp" %>
+
+	<!-- Script -->
+	<%@ include file="/commonJsp/scriptLib.jsp" %>
 </body>
+
 </html>

@@ -1,19 +1,23 @@
 <%@page import="kr.or.ddit.user.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
-<%@ include file="/commonJsp/basicLib.jsp" %>
-<title>jsp_board</title>
+	
+<title>gguksoon_JSP-Board</title>
 
+<!-- CSS -->
+<%@ include file="/commonJsp/cssLib.jsp" %>
+
+<script src="${cp }/js/jquery-3.4.1.min.js"></script>
 <script src="${cp }/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
@@ -57,8 +61,6 @@ $(document).ready(function() {
 		
 });
 
-
-
 //필수값 Check
 function validation(){
 	var contents = $.trim(oEditors[0].getContents());
@@ -71,22 +73,30 @@ function validation(){
 	return true;
 }
 </script>
+
 </head>
 
-<body class="se2_inputarea" style="height:0;-webkit-nbsp-mode:normal">
-	<!-- header -->
-	<%@ include file="/header.jsp"%>
-	<div class="container-fluid">
-		<div class="row">
+<body id="page-top" class="se2_inputarea">
+	<!-- nav -->
+	<%@ include file="/nav.jsp" %>
 
-			<!-- left -->
-			<div class="col-sm-3 col-md-2 sidebar">
-				<%@ include file="/left.jsp" %>
-			</div>
-			
-			<!-- contents -->
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h2 class="sub-header">새글쓰기 | ${board.boardNm }</h2>
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<%@ include file="/left.jsp"%>
+
+		<div id="content-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="${cp }/main">JSP</a></li>
+					<li class="breadcrumb-item"><a href="${cp }/postPagingList?boardSeq=${board.boardSeq }">${board.boardNm }</a></li>
+					<li class="breadcrumb-item active">새글쓰기</li>
+				</ol>
+
+				<!-- Page Content -->
 				<form class="form-inline" action="${cp }/insertPost" method="post" id="frm" enctype="multipart/form-data">
 					<input type="hidden" name="boardSeq" value="${board.boardSeq }"/>
 					<input type="hidden" name="postSeq" value="${postSeq }"/>
@@ -98,28 +108,42 @@ function validation(){
 						<input name="postNm" class="form-control" required style="width: 750px;"/>
 					</div>
 					
-					<br><br>
+					<br><br><br>
 					<textarea name="content" id="smarteditor" rows="10" cols="100" class="col-sm-10" style="width:800px; height:500px;"></textarea>
-					<br><br>
 					<div class="form-group">
-						<label for="files" class="col-sm-2 control-label">첨부파일</label>
-						<div class="col-sm-10">
-							<input type="file" multiple="multiple" class="form-control" id="files" name="files" placeholder="첨부파일">
+						<br><br><br>
+						<label for="files" class="col-sm-3 control-label">첨부파일: </label>
+						<div class="col-sm-9">
+							<input type="file" multiple="multiple" class="form-control-file border" id="files" name="files" placeholder="첨부파일">
 						</div>
 					</div>
 					
 					<div style="width: 800px; margin-top: 10px;">
-						<button type="button" id="cancelBtn" class="btn btn-default pull-right" style="margin-left: 5px;">
-							<span class="glyphicon glyphicon-remove"></span> 취소
-						</button> 
-						
-						<button type="button" id="insertBtn" class="btn btn-default pull-right">
-							<span class="glyphicon glyphicon-ok"></span> 작성
-						</button>
+						<a href="${cp }/postPagingList?boardSeq=${board.boardSeq }" class="btn btn-dark float-right" style="margin-left: 5px;">취소</a> 
+						<button type="button" id="insertBtn" class="btn btn-dark float-right">작성</button>
 					</div>
 				</form>
 			</div>
+			<!-- /.container-fluid -->
+
+			<!-- Sticky Footer -->
+			<%@ include file="/footer.jsp" %>
+
 		</div>
+		<!-- /.content-wrapper -->
+
 	</div>
+	<!-- /#wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<%@ include file="/modal.jsp" %>
+	
+	<!-- Script -->
+	<%@ include file="/commonJsp/scriptLib.jsp" %>
 </body>
 </html>

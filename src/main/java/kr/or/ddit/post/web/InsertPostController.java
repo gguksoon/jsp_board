@@ -108,7 +108,7 @@ public class InsertPostController extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/post?postSeq=" + resultPost.getPostSeq());
+		response.sendRedirect(request.getContextPath() + "/post?boardSeq=" + boardSeq + "&postSeq=" + resultPost.getPostSeq());
 		//====================================================================
 	}
 

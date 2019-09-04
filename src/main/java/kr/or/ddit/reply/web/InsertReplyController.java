@@ -31,6 +31,8 @@ public class InsertReplyController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+		
 		int postSeq = Integer.parseInt(request.getParameter("postSeq"));
 		String userId = request.getParameter("userId");
 		String replyContent = request.getParameter("replyContent");
@@ -41,7 +43,7 @@ public class InsertReplyController extends HttpServlet {
 		
 		replyService.insertReply(reply);
 		
-		response.sendRedirect(request.getContextPath() + "/post?postSeq=" + postSeq);
+		response.sendRedirect(request.getContextPath() + "/post?boardSeq=" + boardSeq + "&postSeq=" + postSeq);
 	}
 
 }

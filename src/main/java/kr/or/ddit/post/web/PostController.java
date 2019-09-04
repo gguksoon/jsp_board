@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.ddit.board.model.Board;
 import kr.or.ddit.board.service.BoardService;
 import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.file.model.File;
@@ -44,6 +45,11 @@ public class PostController extends HttpServlet {
 		Post post = postService.getPost(postSeq);
 		
 		request.setAttribute("post", post);
+
+		String boardSeq = request.getParameter("boardSeq");
+		Board board = boardService.getBoard(boardSeq);
+		
+		request.setAttribute("board", board);
 		
 		List<Reply> replyList = replyService.getReplyList(postSeq);
 		request.setAttribute("replyList", replyList);

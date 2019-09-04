@@ -67,6 +67,8 @@ public class UpdatePostController extends HttpServlet {
 		
 		request.setAttribute("boardList", boardService.getBoardList());
 		
+		int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+		
 		int postSeq = Integer.parseInt(request.getParameter("postSeq"));
 		String postNm = request.getParameter("postNm");
 		String postContent = request.getParameter("content");
@@ -97,7 +99,7 @@ public class UpdatePostController extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/post?postSeq=" + postSeq);
+		response.sendRedirect(request.getContextPath() + "/post?boardSeq=" + boardSeq + "&postSeq=" + postSeq);
 	}
 
 }
