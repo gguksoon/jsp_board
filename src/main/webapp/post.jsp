@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,7 +109,7 @@
 				<div class="col-sm-10 blog-main">
 					<!-- 제목 -->
 					<h1>${post.postNm }</h1>
-					작성자: ${post.userId } | 작성일: ${post.postRegDate }
+					작성자: ${post.userId } | 작성일: <fmt:formatDate value="${post.postRegDate }" pattern="yyyy/MM/dd HH:mm"/>
 					<hr>
 					<!-- 내용 -->
 					${post.postContent }
@@ -128,12 +129,12 @@
 								<c:when test="${reply.replyStatus == 1 }">
 									<form class="deleteReply" action="${cp }/deleteReply" method="post">
 										<p class="stat1">
-											${reply.replyContent } [ ${reply.userId } / ${reply.replyRegDate } ]
+											${reply.replyContent } [ ${reply.userId } | <fmt:formatDate value="${reply.replyRegDate }" pattern="yyyy/MM/dd HH:mm"/> ]
 											<c:if test="${reply.userId == S_USERVO.userId }">
 												<input type="hidden" name="postSeq" value="${post.postSeq }"/>
 												<input type="hidden" name="replySeq" value="${reply.replySeq }" />
-												<button type="button" class="btnDeleteReply btn btn-link btn-xs">
-													<span class="glyphicon glyphicon-remove"></span>
+												<button type="button" class="btnDeleteReply btn btn-xs">
+													<i class="fas fa-trash-alt"></i>
 												</button>
 											</c:if>
 										</p>

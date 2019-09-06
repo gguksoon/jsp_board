@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,7 +128,8 @@
 									</c:choose>
 								</td>
 								<td class="text-center">${post.USERID}</td>
-								<td class="text-center">${post.POSTREGDATE}</td>
+								<td class="text-center"><fmt:formatDate value="${post.POSTREGDATE }" pattern="yyyy/MM/dd HH:mm"/></td>
+								
 							</tr>
 						</c:forEach>
 						
